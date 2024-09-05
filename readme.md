@@ -4,7 +4,7 @@
 <h1 align="center">Hi 👋, I'm KuahCurry</h1>
 <h3 align="center">A passionate programmer wannabe hoping to rizz some genuine collaboratos</h3>
 
-<img src = https://media1.tenor.com/m/7ul3GUwByN0AAAAd/elden-ring.gif width = 180 align = right>
+<img src = https://media1.tenor.com/m/7ul3GUwByN0AAAAd/elden-ring.gif width = 160 align = right>
 
 - 🔭 I’m currently working on **Luminous Website Project and Bangkit Participant**
 
