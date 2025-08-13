@@ -2,11 +2,11 @@
 <img src = https://media1.tenor.com/m/GUg4S7RKSuoAAAAd/elden-ring-goty.gif alt = "good morning">
 
 <h1 align="center">Hi 👋, I'm KuahCurry</h1>
-<h3 align="center">A passionate programmer wannabe hoping to rizz some genuine collaboratos</h3>
+<h3 align="center">A passionate programmer wannabe hoping to grapple some genuine collaboratos</h3>
 
 <img src = https://media1.tenor.com/m/7ul3GUwByN0AAAAd/elden-ring.gif width = 160 align = right>
 
-- 🔭 I’m currently working on **Luminous Website Project and Bangkit Participant**
+- 🔭 I’m currently working on **Inventory Management System for a Hospital**
 
 - 🌱 I’m currently learning **front-end frameworks, HTML-CSS-PHP, and Python.**
 
