@@ -1,0 +1,127 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+@source '../js/**/*.js';
+
+@theme {
+    --font-serif: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif;
+    --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    
+    --color-paper: #FAF9F6;
+    --color-paper-card: #FFFFFF;
+    --color-paper-muted: #F4F2EB;
+    --color-border-subtle: #E8E5DC;
+    --color-border-prominent: #D5D1C6;
+    --color-ink-primary: #1C1917;
+    --color-ink-secondary: #57534E;
+    --color-ink-muted: #78716C;
+    --color-accent: #8F6A3B;
+    --color-accent-dark: #6B4E26;
+}
+
+/* Material Web M3 Theming for Classical Minimalist Aesthetic */
+:root {
+    --md-sys-color-primary: #1c1917;
+    --md-sys-color-on-primary: #fafaf9;
+    --md-sys-color-primary-container: #e7e5e4;
+    --md-sys-color-on-primary-container: #1c1917;
+    --md-sys-color-surface: #ffffff;
+    --md-sys-color-on-surface: #1c1917;
+    --md-sys-color-surface-variant: #f5f5f4;
+    --md-sys-color-on-surface-variant: #57534e;
+    --md-sys-color-outline: #d6d3d1;
+    --md-sys-color-outline-variant: #e7e5e4;
+    
+    /* M3 Button Shape Styling */
+    --md-filled-button-container-shape: 8px;
+    --md-outlined-button-outline-width: 1px;
+    --md-outlined-button-outline-color: #d6d3d1;
+    --md-outlined-button-label-text-color: #1c1917;
+    --md-outlined-button-hover-label-text-color: #000000;
+    --md-outlined-button-container-shape: 8px;
+
+    /* M3 Chip Styling */
+    --md-assist-chip-container-shape: 6px;
+    --md-assist-chip-outline-color: #e7e5e4;
+    --md-filter-chip-container-shape: 6px;
+    --md-filter-chip-outline-color: #d6d3d1;
+
+    /* M3 Outlined Textfield */
+    --md-outlined-text-field-container-shape: 8px;
+    --md-outlined-text-field-outline-color: #d6d3d1;
+    --md-outlined-text-field-focus-outline-color: #1c1917;
+    --md-outlined-text-field-input-text-color: #1c1917;
+    --md-outlined-text-field-label-text-color: #78716c;
+    --md-outlined-text-field-focus-label-text-color: #1c1917;
+}
+
+/* Base Body Styles */
+body {
+    background-color: #FAF9F6;
+    color: #1C1917;
+    font-family: var(--font-sans);
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Classical Typography Helpers */
+.font-serif-title {
+    font-family: var(--font-serif);
+    font-feature-settings: 'lnum' 1;
+}
+
+.classical-rule {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.classical-rule::before,
+.classical-rule::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #E8E5DC;
+}
+
+.classical-rule:not(:empty)::before {
+    margin-right: 1.5rem;
+}
+
+.classical-rule:not(:empty)::after {
+    margin-left: 1.5rem;
+}
+
+/* Subtle architectural hover transitions */
+.portfolio-card-hover {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+
+.portfolio-card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px -10px rgba(28, 25, 23, 0.08);
+    border-color: #C7C2B4;
+}
+
+/* Custom Scrollbar for refined aesthetic */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #FAF9F6;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D6D3D1;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #A8A29E;
+}
