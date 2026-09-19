@@ -27,6 +27,7 @@
                 <thead class="bg-[#FAF9F6] border-b border-[#E8E5DC] text-xs font-mono uppercase text-[#78716C]">
                     <tr>
                         <th class="px-6 py-4">Skill Name</th>
+                        <th class="px-6 py-4">Type</th>
                         <th class="px-6 py-4">Category</th>
                         <th class="px-6 py-4">Proficiency</th>
                         <th class="px-6 py-4">Icon</th>
@@ -42,6 +43,16 @@
                                     <span class="material-symbols-outlined text-sm text-[#8F6A3B]">{{ $skill->icon ?? 'circle' }}</span>
                                     <span>{{ $skill->name }}</span>
                                 </div>
+                                @if($skill->description)
+                                    <p class="text-xs text-[#78716C] font-normal line-clamp-1 mt-0.5">{{ $skill->description }}</p>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 text-xs font-mono">
+                                @if($skill->type === 'soft')
+                                    <span class="px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 font-medium">Soft</span>
+                                @else
+                                    <span class="px-2 py-0.5 rounded-full bg-stone-100 border border-stone-300 text-stone-700 font-medium">Technical</span>
+                                @endif
                             </td>
                             <td class="px-6 py-4 text-xs font-mono text-[#57534E]">
                                 <span class="px-2 py-0.5 rounded bg-[#FAF9F6] border border-[#E8E5DC]">
@@ -79,7 +90,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-6 py-8 text-center text-[#78716C] italic font-mono text-xs">
+                            <td colspan="7" class="px-6 py-8 text-center text-[#78716C] italic font-mono text-xs">
                                 No skills recorded. Click "Add New Skill" to add one.
                             </td>
                         </tr>

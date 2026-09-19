@@ -206,4 +206,144 @@ class AdminTest extends TestCase
         $deleteResponse->assertRedirect(route('admin.messages.index'));
         $this->assertDatabaseMissing('contact_messages', ['id' => $message->id]);
     }
+
+    public function test_admin_can_access_ats_generator(): void
+    {
+        $response = $this->actingAs($this->admin)->get('/manage/ats-generator');
+        $response->assertStatus(200);
+        $response->assertSee('ATS-Friendly Resume Generator');
+        $response->assertSee('English ATS');
+        $response->assertSee('Indonesian ATS');
+        $response->assertSee('Bio');
+        $response->assertSee('Education');
+        $response->assertSee('Experience');
+        $response->assertSee('Projects');
+        $response->assertSee('Skills');
+        $response->assertSee('PROFESSIONAL SUMMARY');
+    }
+
+    public function test_admin_can_switch_ats_generator_to_indonesian(): void
+    {
+        $response = $this->actingAs($this->admin)->get('/manage/ats-generator?lang=id');
+        $response->assertStatus(200);
+        $response->assertSee('Indonesian ATS');
+        $response->assertSee('RINGKASAN PROFESIONAL');
+        $response->assertSee('PENGALAMAN KERJA PROFESIONAL');
+        $response->assertSee('PENDIDIKAN &amp; KUALIFIKASI AKADEMIK', false);
+    }
+
+    public function test_unauthenticated_user_cannot_access_ats_generator(): void
+    {
+        $response = $this->get('/manage/ats-generator');
+        $response->assertRedirect(route('admin.login'));
+    }
+
+    public function test_admin_can_create_project_with_certificate(): void
+    {
+        $response = $this->actingAs($this->admin)->post('/manage/projects', [
+            'title' => 'Quantum Cryptographic Ledger',
+            'category' => 'FinTech & Security',
+            'tagline' => 'High throughput zero-knowledge verification ledger',
+            'description' => 'A cryptographic audit trail platform.',
+            'github_url' => 'https://github.com/example/zk-ledger',
+            'website_url' => 'https://zk-ledger.example.com',
+            'certificate_url' => 'https://credentials.example.com/certs/zk-ledger-patent',
+            'certificate_image' => 'https://credentials.example.com/certs/zk-ledger.jpg',
+            'technologies' => 'Laravel, Rust, Redis',
+            'is_featured' => 1,
+            'sort_order' => 1,
+        ]);
+
+        $response->assertRedirect(route('admin.projects.index'));
+        $this->assertDatabaseHas('projects', [
+            'title' => 'Quantum Cryptographic Ledger',
+            'certificate_url' => 'https://credentials.example.com/certs/zk-ledger-patent',
+            'certificate_image' => 'https://credentials.example.com/certs/zk-ledger.jpg',
+        ]);
+    }
+
+    public function test_admin_can_create_experience_with_certificate(): void
+    {
+        $response = $this->actingAs($this->admin)->post('/manage/experiences', [
+            'role' => 'Principal Security Architect',
+            'company' => 'Cipher Fortress',
+            'company_url' => 'https://cipherfortress.example.com',
+            'certificate_url' => 'https://credentials.example.com/certs/cissp-cert',
+            'certificate_image' => 'https://credentials.example.com/certs/cissp.jpg',
+            'location' => 'Austin, TX (Remote)',
+            'start_date' => '2023',
+            'end_date' => 'Present',
+            'is_current' => 1,
+            'description' => 'Designed multi-tenant security architecture.',
+            'technologies' => 'Laravel, PostgreSQL, Vault',
+            'sort_order' => 1,
+        ]);
+
+        $response->assertRedirect(route('admin.experiences.index'));
+        $this->assertDatabaseHas('experiences', [
+            'role' => 'Principal Security Architect',
+            'certificate_url' => 'https://credentials.example.com/certs/cissp-cert',
+            'certificate_image' => 'https://credentials.example.com/certs/cissp.jpg',
+        ]);
+    }
+
+    public function test_admin_can_create_soft_skill_with_description(): void
+    {
+        $response = $this->actingAs($this->admin)->post('/manage/skills', [
+            'name' => 'Strategic System Decomposition',
+            'type' => 'soft',
+            'category' => 'leadership',
+            'proficiency' => 95,
+            'description' => 'Architecting bounded contexts and isolating high-risk dependencies in mission-critical environments.',
+            'icon' => 'psychology',
+            'sort_order' => 1,
+        ]);
+
+        $response->assertRedirect(route('admin.skills.index'));
+        $this->assertDatabaseHas('skills', [
+            'name' => 'Strategic System Decomposition',
+            'type' => 'soft',
+            'category' => 'leadership',
+            'description' => 'Architecting bounded contexts and isolating high-risk dependencies in mission-critical environments.',
+        ]);
+    }
+
+    public function test_admin_can_create_bilingual_education(): void
+    {
+        $response = $this->actingAs($this->admin)->post('/manage/education', [
+            'institution' => 'Universitas Indonesia',
+            'degree' => 'Bachelor of Computer Science',
+            'degree_id' => 'Sarjana Ilmu Komputer',
+            'field_of_study' => 'Software Engineering',
+            'field_of_study_id' => 'Rekayasa Perangkat Lunak',
+            'start_year' => '2019',
+            'end_year' => '2023',
+            'description' => 'Research in database engines.',
+            'description_id' => 'Riset dalam mesin basis data.',
+            'achievements' => "Cum Laude\nDean List",
+            'achievements_id' => "Lulusan Terbaik\nPenghargaan Dekan",
+            'sort_order' => 5,
+        ]);
+
+        $response->assertRedirect(route('admin.education.index'));
+        $this->assertDatabaseHas('education', [
+            'institution' => 'Universitas Indonesia',
+            'degree' => 'Bachelor of Computer Science',
+            'degree_id' => 'Sarjana Ilmu Komputer',
+            'field_of_study_id' => 'Rekayasa Perangkat Lunak',
+        ]);
+    }
+
+    public function test_locale_switcher_changes_language_to_indonesian(): void
+    {
+        $switchResponse = $this->get('/locale/id');
+        $switchResponse->assertRedirect();
+        $this->assertEquals('id', session('locale'));
+
+        $homeResponse = $this->withSession(['locale' => 'id'])->get('/');
+        $homeResponse->assertStatus(200);
+        $homeResponse->assertSee('Latar Belakang Akademik');
+        $homeResponse->assertSee('Pengalaman Profesional');
+        $homeResponse->assertSee('Katalog Proyek &amp; Sistem Pilihan', false);
+    }
 }

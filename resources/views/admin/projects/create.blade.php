@@ -15,48 +15,115 @@
         </a>
     </div>
 
-    <form action="{{ route('admin.projects.store') }}" method="POST" class="bg-white rounded-2xl border border-[#E8E5DC] p-6 sm:p-10 space-y-6 shadow-xs">
+    <form action="{{ route('admin.projects.store') }}" method="POST" class="bg-white rounded-2xl border border-[#E8E5DC] p-6 sm:p-10 space-y-8 shadow-xs">
         @csrf
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div class="sm:col-span-2">
-                <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Project Title *</label>
-                <input type="text" name="title" value="{{ old('title') }}" required placeholder="e.g. Aura Distributed Orchestrator" class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
+        <!-- Bilingual Content: 2 Columns -->
+        <div>
+            <div class="flex items-center justify-between border-b border-[#F4F2EB] pb-2 mb-6">
+                <div>
+                    <h3 class="font-serif text-lg font-bold text-[#1C1917]">Project Content &amp; Descriptions</h3>
+                    <p class="text-xs text-[#78716C] font-mono mt-0.5">Enter English details on the left, Indonesian on the right.</p>
+                </div>
+                <div class="flex items-center gap-2 text-xs font-mono">
+                    <span class="px-2 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-200">🇬🇧 English</span>
+                    <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">🇮🇩 Indonesia</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Column 1: English -->
+                <div class="space-y-5 p-5 rounded-xl bg-[#FAF9F6] border border-[#E8E5DC]">
+                    <div class="flex items-center gap-2 border-b border-[#E8E5DC] pb-2">
+                        <span class="text-base">🇬🇧</span>
+                        <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-[#1C1917]">English Presentation</h4>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Project Title *</label>
+                        <input type="text" name="title" value="{{ old('title') }}" required placeholder="e.g. Aura Distributed Orchestrator" class="w-full px-3.5 py-2.5 rounded-lg bg-white border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Category *</label>
+                        <input type="text" name="category" value="{{ old('category', 'Distributed Systems & Backend') }}" required placeholder="e.g. Full-Stack Web Application" class="w-full px-3.5 py-2.5 rounded-lg bg-white border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Tagline / Subtitle</label>
+                        <input type="text" name="tagline" value="{{ old('tagline') }}" placeholder="A concise, compelling technical tagline" class="w-full px-3.5 py-2.5 rounded-lg bg-white border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Detailed Description *</label>
+                        <textarea name="description" rows="5" required placeholder="Describe the technical challenges, architecture choices, and results in English..." class="w-full px-3.5 py-2.5 rounded-lg bg-white border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none leading-relaxed">{{ old('description') }}</textarea>
+                    </div>
+                </div>
+
+                <!-- Column 2: Indonesian -->
+                <div class="space-y-5 p-5 rounded-xl bg-[#FAF9F6] border border-[#E8E5DC]">
+                    <div class="flex items-center gap-2 border-b border-[#E8E5DC] pb-2">
+                        <span class="text-base">🇮🇩</span>
+                        <h4 class="text-xs font-mono uppercase tracking-wider font-bold text-[#1C1917]">Presentasi Bahasa Indonesia</h4>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Judul Proyek (ID)</label>
+                        <input type="text" name="title_id" value="{{ old('title_id') }}" placeholder="Opsional jika judul sama" class="w-full px-3.5 py-2.5 rounded-lg bg-white border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Kategori Proyek (ID)</label>
+                        <input type="text" name="category_id" value="{{ old('category_id') }}" placeholder="cth. Sistem Terdistribusi & Backend" class="w-full px-3.5 py-2.5 rounded-lg bg-white border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Slogan / Subjudul (ID)</label>
+                        <input type="text" name="tagline_id" value="{{ old('tagline_id') }}" placeholder="Slogan teknis dalam Bahasa Indonesia" class="w-full px-3.5 py-2.5 rounded-lg bg-white border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Deskripsi Lengkap (ID)</label>
+                        <textarea name="description_id" rows="5" placeholder="Jelaskan tantangan teknis, arsitektur, dan dampak dalam Bahasa Indonesia..." class="w-full px-3.5 py-2.5 rounded-lg bg-white border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none leading-relaxed">{{ old('description_id') }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shared Technical Properties -->
+        <div>
+            <h3 class="font-serif text-lg font-bold text-[#1C1917] border-b border-[#F4F2EB] pb-2 mb-4">
+                Shared Project Links &amp; Technical Attributes
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Slug (URL identifier)</label>
+                    <input type="text" name="slug" value="{{ old('slug') }}" placeholder="auto-generated if empty" class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Thumbnail Image URL</label>
+                    <input type="text" name="thumbnail" value="{{ old('thumbnail') }}" placeholder="https://..." class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Git Repository URL</label>
+                    <input type="url" name="github_url" value="{{ old('github_url') }}" placeholder="https://github.com/username/repository" class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Live Demo / Website URL</label>
+                    <input type="url" name="website_url" value="{{ old('website_url') }}" placeholder="https://project.example.com" class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
+                </div>
+
+            <div>
+                <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Credential / Certificate URL (Optional)</label>
+                <input type="url" name="certificate_url" value="{{ old('certificate_url') }}" placeholder="https://credentials.example.com/project-award" class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
             </div>
 
             <div>
-                <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Slug (URL identifier)</label>
-                <input type="text" name="slug" value="{{ old('slug') }}" placeholder="auto-generated if empty" class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
-            </div>
-
-            <div>
-                <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Category *</label>
-                <input type="text" name="category" value="{{ old('category', 'Distributed Systems & Backend') }}" required placeholder="e.g. Full-Stack Web Application" class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
-            </div>
-
-            <div class="sm:col-span-2">
-                <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Tagline / Subtitle</label>
-                <input type="text" name="tagline" value="{{ old('tagline') }}" placeholder="A concise, compelling technical tagline" class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
-            </div>
-
-            <div class="sm:col-span-2">
-                <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Detailed Description *</label>
-                <textarea name="description" rows="4" required placeholder="Describe the technical challenges, architecture choices, and results..." class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none leading-relaxed">{{ old('description') }}</textarea>
-            </div>
-
-            <div class="sm:col-span-2">
-                <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Thumbnail Image URL</label>
-                <input type="text" name="thumbnail" value="{{ old('thumbnail') }}" placeholder="https://..." class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
-            </div>
-
-            <div>
-                <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Git Repository URL</label>
-                <input type="url" name="github_url" value="{{ old('github_url') }}" placeholder="https://github.com/username/repository" class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
-            </div>
-
-            <div>
-                <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Live Demo / Website URL</label>
-                <input type="url" name="website_url" value="{{ old('website_url') }}" placeholder="https://project.example.com" class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
+                <label class="block text-xs font-mono uppercase tracking-wider text-[#78716C] mb-1.5 font-semibold">Certificate Image URL (Optional)</label>
+                <input type="text" name="certificate_image" value="{{ old('certificate_image') }}" placeholder="https://..." class="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF9F6] border border-[#D6D3D1] text-sm text-[#1C1917] focus:ring-1 focus:ring-[#1C1917] outline-none">
             </div>
 
             <div class="sm:col-span-2">

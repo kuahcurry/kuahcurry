@@ -4,15 +4,15 @@
         <!-- Section Header -->
         <div class="max-w-2xl mb-16">
             <div class="flex items-center gap-2 text-[#8F6A3B] text-xs font-mono tracking-widest uppercase font-semibold">
-                <span>02</span>
+                <span>{{ __('portfolio.section_education_number') }}</span>
                 <span class="w-8 h-px bg-[#8F6A3B]"></span>
-                <span>Foundations</span>
+                <span>{{ __('portfolio.section_education_label') }}</span>
             </div>
             <h2 class="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#1C1917] mt-2">
-                Education & Credentials
+                {{ __('portfolio.section_education_title') }}
             </h2>
             <p class="text-[#57534E] text-base mt-2 leading-relaxed">
-                Academic training in computer science theory, distributed systems, and computer architecture.
+                {{ __('portfolio.section_education_subtitle') }}
             </p>
         </div>
 
@@ -28,10 +28,10 @@
                                     {{ $item->institution }}
                                 </span>
                                 <h3 class="font-serif text-xl sm:text-2xl font-bold text-[#1C1917] leading-tight">
-                                    {{ $item->degree }}
+                                    {{ $item->trans('degree') }}
                                 </h3>
                                 <p class="text-sm text-[#78716C] font-medium">
-                                    {{ $item->field_of_study }}
+                                    {{ $item->trans('field_of_study') }}
                                 </p>
                             </div>
 
@@ -50,18 +50,23 @@
                         @endif
 
                         <!-- Description -->
-                        @if($item->description)
+                        @if($item->trans('description'))
                             <p class="text-sm text-[#57534E] leading-relaxed mb-4">
-                                {{ $item->description }}
+                                {{ $item->trans('description') }}
                             </p>
                         @endif
 
                         <!-- Achievements / Capstone -->
-                        @if(!empty($item->achievements) && is_array($item->achievements))
+                        @php
+                            $achievements = $item->trans('achievements');
+                        @endphp
+                        @if(!empty($achievements) && is_array($achievements))
                             <div class="space-y-1.5 mt-2">
-                                <span class="text-xs font-mono uppercase tracking-wider text-[#78716C]">Honors & Activities:</span>
+                                <span class="text-xs font-mono uppercase tracking-wider text-[#78716C]">
+                                    {{ app()->getLocale() === 'id' ? 'Prestasi & Kehormatan:' : 'Honors & Activities:' }}
+                                </span>
                                 <ul class="space-y-1 text-xs text-[#57534E]">
-                                    @foreach($item->achievements as $ach)
+                                    @foreach($achievements as $ach)
                                         <li class="flex items-start gap-2">
                                             <span class="text-[#8F6A3B] mt-0.5">&bull;</span>
                                             <span>{{ $ach }}</span>
@@ -75,7 +80,7 @@
                     <div class="mt-6 pt-4 border-t border-[#F4F2EB] flex items-center justify-between text-xs text-[#78716C] font-mono">
                         <span class="flex items-center gap-1">
                             <span class="material-symbols-outlined text-sm text-[#8F6A3B]">verified</span>
-                            <span>Verified Credential</span>
+                            <span>{{ __('portfolio.verified_org_record') }}</span>
                         </span>
                         <span>Academic Record</span>
                     </div>

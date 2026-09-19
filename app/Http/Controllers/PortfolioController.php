@@ -21,11 +21,15 @@ class PortfolioController extends Controller
         $projects = Project::orderBy('sort_order')->get();
         
         $skills = Skill::orderBy('sort_order')->get();
+        
+        $technicalSkills = $skills->where('type', 'technical');
+        $softSkills = $skills->where('type', 'soft');
+
         $groupedSkills = [
-            'languages' => $skills->where('category', 'programming_language'),
-            'frameworks' => $skills->where('category', 'framework'),
-            'databases' => $skills->where('category', 'database'),
-            'tools' => $skills->where('category', 'tools'),
+            'languages' => $technicalSkills->where('category', 'programming_language'),
+            'frameworks' => $technicalSkills->where('category', 'framework'),
+            'databases' => $technicalSkills->where('category', 'database'),
+            'tools' => $technicalSkills->where('category', 'tools'),
         ];
 
         $categories = $projects->pluck('category')->unique()->values();
@@ -36,6 +40,7 @@ class PortfolioController extends Controller
             'experiences',
             'projects',
             'groupedSkills',
+            'softSkills',
             'categories'
         ));
     }

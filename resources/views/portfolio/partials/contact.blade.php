@@ -4,15 +4,15 @@
         <!-- Section Header -->
         <div class="max-w-2xl mb-16">
             <div class="flex items-center gap-2 text-[#8F6A3B] text-xs font-mono tracking-widest uppercase font-semibold">
-                <span>05</span>
+                <span>{{ __('portfolio.section_contact_number') }}</span>
                 <span class="w-8 h-px bg-[#8F6A3B]"></span>
-                <span>Direct Inquiries</span>
+                <span>{{ __('portfolio.section_contact_label') }}</span>
             </div>
             <h2 class="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#1C1917] mt-2">
-                Contact Person & Details
+                {{ __('portfolio.section_contact_title') }}
             </h2>
             <p class="text-[#57534E] text-base mt-2 leading-relaxed">
-                Connect directly for executive advisory, contract opportunities, technical interviews, or architectural consultations.
+                {{ __('portfolio.section_contact_subtitle') }}
             </p>
         </div>
 
@@ -31,19 +31,19 @@
                                 {{ $profile->name ?? 'Alexander Vance' }}
                             </h3>
                             <p class="text-sm text-[#8F6A3B] font-medium">
-                                {{ $profile->title ?? 'Senior Full-Stack Engineer & Architect' }}
+                                {{ $profile->trans('title') ?? 'Senior Full-Stack Engineer & Architect' }}
                             </p>
                         </div>
                     </div>
 
                     <p class="text-sm text-[#57534E] leading-relaxed pt-2">
-                        I am based in San Francisco, California and work regularly across Pacific (PST), Eastern (EST), and Central European (CET) timezones.
+                        {{ $profile->trans('tagline') ?? 'Available for advisory, architecture consulting, and high-impact engineering projects.' }}
                     </p>
 
                     <!-- Response Expectation Badge -->
                     <div class="flex items-center gap-2 p-3 rounded-lg bg-[#FAF9F6] border border-[#E8E5DC] text-xs font-mono text-[#57534E]">
                         <span class="material-symbols-outlined text-[#8F6A3B] text-base">schedule</span>
-                        <span>Typical response latency: &lt; 24 business hours</span>
+                        <span>{{ __('portfolio.response_time') }}: {{ __('portfolio.response_time_val') }}</span>
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@
                     <!-- Direct Email -->
                     <div class="p-5 rounded-xl bg-[#FAF9F6] border border-[#E8E5DC] space-y-2">
                         <div class="flex items-center justify-between text-xs font-mono text-[#78716C]">
-                            <span class="uppercase">Direct Email</span>
+                            <span class="uppercase font-semibold">{{ __('portfolio.direct_email') }}</span>
                             <span class="material-symbols-outlined text-sm text-[#8F6A3B]">mail</span>
                         </div>
                         <p class="font-mono text-sm font-semibold text-[#1C1917] truncate">
@@ -69,7 +69,7 @@
                     <!-- Direct Phone / WhatsApp -->
                     <div class="p-5 rounded-xl bg-[#FAF9F6] border border-[#E8E5DC] space-y-2">
                         <div class="flex items-center justify-between text-xs font-mono text-[#78716C]">
-                            <span class="uppercase">Telephone</span>
+                            <span class="uppercase font-semibold">{{ __('portfolio.direct_phone') }}</span>
                             <span class="material-symbols-outlined text-sm text-[#8F6A3B]">phone_iphone</span>
                         </div>
                         <p class="font-mono text-sm font-semibold text-[#1C1917]">
@@ -85,7 +85,7 @@
                     <!-- Location & Timezone -->
                     <div class="p-5 rounded-xl bg-[#FAF9F6] border border-[#E8E5DC] space-y-2">
                         <div class="flex items-center justify-between text-xs font-mono text-[#78716C]">
-                            <span class="uppercase">Location</span>
+                            <span class="uppercase font-semibold">{{ __('portfolio.base_location') }}</span>
                             <span class="material-symbols-outlined text-sm text-[#8F6A3B]">location_city</span>
                         </div>
                         <p class="font-sans text-sm font-semibold text-[#1C1917]">
@@ -99,7 +99,7 @@
                     <!-- Social / Code Repositories -->
                     <div class="p-5 rounded-xl bg-[#FAF9F6] border border-[#E8E5DC] space-y-2">
                         <div class="flex items-center justify-between text-xs font-mono text-[#78716C]">
-                            <span class="uppercase">Online Profiles</span>
+                            <span class="uppercase font-semibold">Online Profiles</span>
                             <span class="material-symbols-outlined text-sm text-[#8F6A3B]">share</span>
                         </div>
                         <div class="flex items-center gap-3 pt-1">

@@ -25,14 +25,19 @@ class ExperienceController extends Controller
     {
         $validated = $request->validate([
             'role' => 'required|string|max:255',
+            'role_id' => 'nullable|string|max:255',
             'company' => 'required|string|max:255',
             'company_url' => 'nullable|url|max:255',
+            'certificate_url' => 'nullable|url|max:255',
+            'certificate_image' => 'nullable|string|max:1000',
             'location' => 'nullable|string|max:255',
             'start_date' => 'required|string|max:100',
             'end_date' => 'nullable|string|max:100',
             'is_current' => 'nullable|boolean',
             'description' => 'nullable|string',
+            'description_id' => 'nullable|string',
             'highlights' => 'nullable|string',
+            'highlights_id' => 'nullable|string',
             'technologies' => 'nullable|string',
             'sort_order' => 'nullable|integer',
         ]);
@@ -45,6 +50,12 @@ class ExperienceController extends Controller
             $validated['highlights'] = array_values(array_filter(array_map('trim', explode("\n", str_replace("\r", "", $validated['highlights'])))));
         } else {
             $validated['highlights'] = [];
+        }
+
+        if (!empty($validated['highlights_id'])) {
+            $validated['highlights_id'] = array_values(array_filter(array_map('trim', explode("\n", str_replace("\r", "", $validated['highlights_id'])))));
+        } else {
+            $validated['highlights_id'] = [];
         }
 
         if (!empty($validated['technologies'])) {
@@ -68,14 +79,19 @@ class ExperienceController extends Controller
     {
         $validated = $request->validate([
             'role' => 'required|string|max:255',
+            'role_id' => 'nullable|string|max:255',
             'company' => 'required|string|max:255',
             'company_url' => 'nullable|url|max:255',
+            'certificate_url' => 'nullable|url|max:255',
+            'certificate_image' => 'nullable|string|max:1000',
             'location' => 'nullable|string|max:255',
             'start_date' => 'required|string|max:100',
             'end_date' => 'nullable|string|max:100',
             'is_current' => 'nullable|boolean',
             'description' => 'nullable|string',
+            'description_id' => 'nullable|string',
             'highlights' => 'nullable|string',
+            'highlights_id' => 'nullable|string',
             'technologies' => 'nullable|string',
             'sort_order' => 'nullable|integer',
         ]);
@@ -86,6 +102,10 @@ class ExperienceController extends Controller
 
         if (isset($validated['highlights'])) {
             $validated['highlights'] = array_values(array_filter(array_map('trim', explode("\n", str_replace("\r", "", $validated['highlights'])))));
+        }
+
+        if (isset($validated['highlights_id'])) {
+            $validated['highlights_id'] = array_values(array_filter(array_map('trim', explode("\n", str_replace("\r", "", $validated['highlights_id'])))));
         }
 
         if (isset($validated['technologies'])) {

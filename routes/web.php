@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AtsGeneratorController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EducationController;
@@ -41,6 +42,9 @@ $registerAdminRoutes = function () {
         // Skills (CRUD)
         Route::resource('skills', SkillController::class)->names('admin.skills');
 
+        // ATS Resume Generator
+        Route::get('/ats-generator', [AtsGeneratorController::class, 'index'])->name('admin.ats.index');
+
         // Collaboration Inquiries
         Route::get('/messages', [MessageController::class, 'index'])->name('admin.messages.index');
         Route::get('/messages/{message}', [MessageController::class, 'show'])->name('admin.messages.show');
@@ -62,3 +66,11 @@ Route::prefix('manage')->group($registerAdminRoutes);
 // -------------------------------------------------------------
 Route::get('/', [PortfolioController::class, 'index'])->name('portfolio.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// Language Switcher Route
+Route::get('/locale/{locale}', function (string $locale) {
+    if (in_array($locale, ['en', 'id'])) {
+        session(['locale' => $locale]);
+    }
+    return back();
+})->name('locale.switch');

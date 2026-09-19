@@ -12,26 +12,26 @@
                         {{ $profile->name ?? 'Alexander Vance' }}
                     </h4>
                     <p class="text-xs text-white/50 font-mono">
-                        {{ $profile->title ?? 'Senior Full-Stack Engineer & Architect' }}
+                        {{ $profile->trans('title') ?? 'Senior Full-Stack Engineer & Architect' }}
                     </p>
                 </div>
             </div>
 
             <!-- Middle: Quick Navigation -->
             <div class="flex flex-wrap justify-center gap-6 text-xs font-mono uppercase tracking-wider text-white/70">
-                <a href="#hero" class="hover:text-white transition-colors">Hero</a>
-                <a href="#experience" class="hover:text-white transition-colors">Experience</a>
-                <a href="#education" class="hover:text-white transition-colors">Education</a>
-                <a href="#projects" class="hover:text-white transition-colors">Projects</a>
-                <a href="#skills" class="hover:text-white transition-colors">Stack</a>
-                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
-                <a href="#work-together" class="hover:text-white transition-colors">Collaborate</a>
+                <a href="#hero" class="hover:text-white transition-colors">{{ __('portfolio.nav_bio') }}</a>
+                <a href="#education" class="hover:text-white transition-colors">{{ __('portfolio.nav_education') }}</a>
+                <a href="#experience" class="hover:text-white transition-colors">{{ __('portfolio.nav_experience') }}</a>
+                <a href="#projects" class="hover:text-white transition-colors">{{ __('portfolio.nav_projects') }}</a>
+                <a href="#skills" class="hover:text-white transition-colors">{{ __('portfolio.nav_skills') }}</a>
+                <a href="#contact" class="hover:text-white transition-colors">{{ __('portfolio.nav_contact') }}</a>
+                <a href="#work-together" class="hover:text-white transition-colors">{{ __('portfolio.nav_work_together') }}</a>
             </div>
 
             <!-- Right: Return to top -->
             <div>
                 <a href="#hero" class="inline-flex items-center gap-2 text-xs font-mono text-white/70 hover:text-white transition-colors p-2 rounded-lg bg-white/5 hover:bg-white/10">
-                    <span>Back to Top</span>
+                    <span>{{ __('portfolio.back_to_top') }}</span>
                     <span class="material-symbols-outlined text-sm">arrow_upward</span>
                 </a>
             </div>
@@ -41,7 +41,7 @@
         <!-- Bottom Line -->
         <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/50">
             <p>
-                &copy; {{ date('Y') }} {{ $profile->name ?? 'Alexander Vance' }}. Timeless craftsmanship & modern architecture.
+                &copy; {{ date('Y') }} {{ $profile->name ?? 'Alexander Vance' }}. {{ __('portfolio.footer_tagline') }}
             </p>
             <p class="flex items-center gap-2">
                 <span>Built with</span>

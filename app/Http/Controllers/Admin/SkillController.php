@@ -12,7 +12,7 @@ class SkillController extends Controller
 {
     public function index(): View
     {
-        $skills = Skill::orderBy('category')->orderBy('sort_order')->get();
+        $skills = Skill::orderBy('type', 'desc')->orderBy('category')->orderBy('sort_order')->get();
         return view('admin.skills.index', compact('skills'));
     }
 
@@ -25,12 +25,17 @@ class SkillController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'category' => 'required|in:programming_language,framework,database,tools',
+            'name_id' => 'nullable|string|max:255',
+            'type' => 'nullable|in:technical,soft',
+            'category' => 'required|string|max:100',
             'proficiency' => 'required|integer|min:1|max:100',
+            'description' => 'nullable|string',
+            'description_id' => 'nullable|string',
             'icon' => 'nullable|string|max:100',
             'sort_order' => 'nullable|integer',
         ]);
 
+        $validated['type'] = $validated['type'] ?? 'technical';
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
 
         Skill::create($validated);
@@ -48,12 +53,17 @@ class SkillController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'category' => 'required|in:programming_language,framework,database,tools',
+            'name_id' => 'nullable|string|max:255',
+            'type' => 'nullable|in:technical,soft',
+            'category' => 'required|string|max:100',
             'proficiency' => 'required|integer|min:1|max:100',
+            'description' => 'nullable|string',
+            'description_id' => 'nullable|string',
             'icon' => 'nullable|string|max:100',
             'sort_order' => 'nullable|integer',
         ]);
 
+        $validated['type'] = $validated['type'] ?? 'technical';
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
 
         $skill->update($validated);

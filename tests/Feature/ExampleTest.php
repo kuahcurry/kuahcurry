@@ -46,20 +46,61 @@ class ExampleTest extends TestCase
         $response->assertSee('Live Demo');
         $response->assertSee('https://github.com/alexandervance-dev/aura-orchestrator');
 
-        // 5. Programming Languages & Frameworks
+        // 5. Programming Languages, Frameworks & Soft Skills
         $response->assertSee('PHP 8.x');
         $response->assertSee('Laravel Framework');
         $response->assertSee('Material Web Components (M3)');
         $response->assertSee('Tailwind CSS');
+        $response->assertSee('Distributed Systems Thinking');
+        $response->assertSee('Engineering Leadership &amp; Mentorship', false);
+
+        // Certificates & Credentials
+        $response->assertSee('View Experience Credential');
+        $response->assertSee('Verified Project Credential / Award');
 
         // 6. Contact Person
-        $response->assertSee('Contact Person & Details', false);
+        $response->assertSee('Contact Person &amp; Details', false);
         $response->assertSee('alexander.vance.dev@gmail.com');
         $response->assertSee('+1 (415) 890-4321');
 
         // 7. Invitation to work together
         $response->assertSee('Let’s Build Something Enduring Together', false);
         $response->assertSee('Transmit Project Inquiry');
+    }
+
+    /**
+     * Test sequence order: Education -> Work Experience -> Projects.
+     */
+    public function test_portfolio_section_sequence_is_education_then_experience_then_projects(): void
+    {
+        $response = $this->get('/');
+        $response->assertStatus(200);
+
+        $content = $response->getContent();
+
+        $educationPos = strpos($content, 'id="education"');
+        $experiencePos = strpos($content, 'id="experience"');
+        $projectsPos = strpos($content, 'id="projects"');
+        $skillsPos = strpos($content, 'id="skills"');
+
+        $this->assertNotFalse($educationPos, 'Education section not found');
+        $this->assertNotFalse($experiencePos, 'Experience section not found');
+        $this->assertNotFalse($projectsPos, 'Projects section not found');
+        $this->assertNotFalse($skillsPos, 'Skills section not found');
+
+        // Assert strictly: Education < Experience < Projects < Skills
+        $this->assertTrue(
+            $educationPos < $experiencePos,
+            'Education section must appear before Work Experience section'
+        );
+        $this->assertTrue(
+            $experiencePos < $projectsPos,
+            'Work Experience section must appear before Projects section'
+        );
+        $this->assertTrue(
+            $projectsPos < $skillsPos,
+            'Projects section must appear before Skills section'
+        );
     }
 
     /**

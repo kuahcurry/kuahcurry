@@ -30,8 +30,11 @@ class ProfileController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'title' => 'required|string|max:255',
+            'title_id' => 'nullable|string|max:255',
             'tagline' => 'required|string|max:255',
+            'tagline_id' => 'nullable|string|max:255',
             'bio' => 'required|string',
+            'bio_id' => 'nullable|string',
             'short_bio' => 'nullable|string',
             'avatar' => 'nullable|string|max:1000',
             'location' => 'nullable|string|max:255',

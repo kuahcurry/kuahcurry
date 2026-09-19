@@ -13,7 +13,11 @@
                 Portfolio content control center for <span class="font-semibold text-[#1C1917]">{{ $profile->name ?? 'Alexander Vance' }}</span>.
             </p>
         </div>
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 flex-wrap">
+            <a href="{{ route('admin.ats.index') }}" class="px-3.5 py-2 rounded-lg bg-[#8F6A3B] text-white text-xs font-mono font-medium hover:bg-[#73542E] transition flex items-center gap-1.5 shadow-xs">
+                <span class="material-symbols-outlined text-sm">description</span>
+                <span>ATS Resume Generator</span>
+            </a>
             <a href="{{ route('admin.projects.create') }}" class="px-3.5 py-2 rounded-lg bg-[#1C1917] text-[#FAF9F6] text-xs font-mono font-medium hover:bg-[#322F2D] transition flex items-center gap-1.5 shadow-xs">
                 <span class="material-symbols-outlined text-sm">add_circle</span>
                 <span>Add Project</span>
@@ -64,6 +68,27 @@
             </p>
             <span class="text-[11px] text-[#8F6A3B] font-mono mt-1 block">Pending &rarr;</span>
         </a>
+    </div>
+
+    <!-- Quick Tool: ATS Resume Generator Callout -->
+    <div class="rounded-xl border border-amber-900/15 bg-gradient-to-r from-amber-50 to-stone-50 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-start gap-3.5">
+            <div class="w-10 h-10 rounded-lg bg-[#8F6A3B]/15 text-[#8F6A3B] flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-xl">description</span>
+            </div>
+            <div>
+                <h3 class="font-serif font-bold text-[#1C1917] text-base">ATS-Friendly Resume Template Generator</h3>
+                <p class="text-xs text-[#57534E] mt-0.5">
+                    Instantly compile your live Bio, Education, Work Experience, Projects, and Skills into an ATS-optimized, recruiter-parseable format.
+                </p>
+            </div>
+        </div>
+        <div class="shrink-0">
+            <a href="{{ route('admin.ats.index') }}" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#1C1917] text-[#FAF9F6] text-xs font-mono font-medium hover:bg-[#322F2D] transition shadow-xs">
+                <span>Open ATS Generator</span>
+                <span class="material-symbols-outlined text-xs">arrow_forward</span>
+            </a>
+        </div>
     </div>
 
     <!-- Two-column Layout: Recent Inquiries & Projects -->

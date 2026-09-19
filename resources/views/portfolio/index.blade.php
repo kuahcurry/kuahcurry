@@ -4,11 +4,11 @@
     <!-- 1. Picture + Bio -->
     @include('portfolio.partials.hero')
 
-    <!-- 2. Professional Experience -->
-    @include('portfolio.partials.experience')
-
-    <!-- 3. Education -->
+    <!-- 2. Education -->
     @include('portfolio.partials.education')
+
+    <!-- 3. Professional Experience -->
+    @include('portfolio.partials.experience')
 
     <!-- 4. Projects (Git repo + live website links included) -->
     @include('portfolio.partials.projects')

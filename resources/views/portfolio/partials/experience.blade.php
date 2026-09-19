@@ -4,15 +4,15 @@
         <!-- Section Header with Classical Accent -->
         <div class="max-w-2xl mb-16">
             <div class="flex items-center gap-2 text-[#8F6A3B] text-xs font-mono tracking-widest uppercase font-semibold">
-                <span>01</span>
+                <span>{{ __('portfolio.section_experience_number') }}</span>
                 <span class="w-8 h-px bg-[#8F6A3B]"></span>
-                <span>Track Record</span>
+                <span>{{ __('portfolio.section_experience_label') }}</span>
             </div>
             <h2 class="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-[#1C1917] mt-2">
-                Work Experience
+                {{ __('portfolio.section_experience_title') }}
             </h2>
             <p class="text-[#57534E] text-base mt-2 leading-relaxed">
-                A chronology of leadership roles, system architecture responsibilities, and distributed software engineering milestones.
+                {{ __('portfolio.section_experience_subtitle') }}
             </p>
         </div>
 
@@ -32,7 +32,7 @@
                         <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 border-b border-[#F4F2EB] pb-4 mb-4">
                             <div>
                                 <h3 class="font-serif text-xl sm:text-2xl font-bold text-[#1C1917]">
-                                    {{ $exp->role }}
+                                    {{ $exp->trans('role') }}
                                 </h3>
                                 <div class="flex items-center gap-2 text-[#8F6A3B] font-medium text-sm mt-0.5">
                                     @if($exp->company_url)
@@ -54,22 +54,25 @@
                             <!-- Duration Badge -->
                             <div class="flex items-center gap-2">
                                 <span class="px-3 py-1 rounded-md text-xs font-mono font-medium {{ $exp->is_current ? 'bg-[#1C1917] text-[#FAF9F6]' : 'bg-[#F4F2EB] text-[#57534E]' }}">
-                                    {{ $exp->start_date }} — {{ $exp->end_date }}
+                                    {{ $exp->start_date }} — {{ $exp->is_current && strtolower($exp->end_date) === 'present' ? __('portfolio.present') : $exp->end_date }}
                                 </span>
                             </div>
                         </div>
 
                         <!-- Role Summary Description -->
-                        @if($exp->description)
+                        @if($exp->trans('description'))
                             <p class="text-[#57534E] text-sm leading-relaxed mb-4">
-                                {{ $exp->description }}
+                                {{ $exp->trans('description') }}
                             </p>
                         @endif
 
                         <!-- Key Achievements / Highlights -->
-                        @if(!empty($exp->highlights) && is_array($exp->highlights))
+                        @php
+                            $highlights = $exp->trans('highlights');
+                        @endphp
+                        @if(!empty($highlights) && is_array($highlights))
                             <ul class="space-y-2 mb-6">
-                                @foreach($exp->highlights as $highlight)
+                                @foreach($highlights as $highlight)
                                     <li class="flex items-start gap-2.5 text-sm text-[#57534E] leading-relaxed">
                                         <span class="text-[#8F6A3B] mt-1 text-xs">&#9670;</span>
                                         <span>{{ $highlight }}</span>
@@ -87,6 +90,18 @@
                                         {{ $tech }}
                                     </span>
                                 @endforeach
+                            </div>
+                        @endif
+
+                        <!-- Certificate / Credential Proof (Optional) -->
+                        @if($exp->certificate_url || $exp->certificate_image)
+                            <div class="mt-4 pt-3 border-t border-[#F4F2EB] flex flex-wrap items-center justify-between gap-2">
+                                <a href="{{ $exp->certificate_url ?? $exp->certificate_image }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#FAF9F6] border border-[#D5D1C6] text-xs font-mono text-[#1C1917] hover:border-[#1C1917] hover:bg-[#F4F2EB] transition">
+                                    <span class="material-symbols-outlined text-sm text-[#8F6A3B]">verified</span>
+                                    <span>{{ __('portfolio.view_credential') }}</span>
+                                    <span class="material-symbols-outlined text-xs">arrow_outward</span>
+                                </a>
+                                <span class="text-[11px] font-mono text-[#78716C]">{{ __('portfolio.verified_org_record') }}</span>
                             </div>
                         @endif
                     </div>

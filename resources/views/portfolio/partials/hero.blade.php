@@ -1,5 +1,4 @@
 <section id="hero" class="relative pt-12 pb-20 md:pt-20 md:pb-28 border-b border-[#E8E5DC] overflow-hidden">
-    <!-- Subtle classical background grain / watermark accent -->
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
@@ -11,7 +10,7 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-600"></span>
                     </span>
-                    <span>{{ $profile->availability_status ?? 'Available for select architectural engagements' }}</span>
+                    <span>{{ $profile->availability_status ?? __('portfolio.available_for_hire') }}</span>
                 </div>
 
                 <!-- Main Classical Heading -->
@@ -20,19 +19,24 @@
                         {{ $profile->name ?? 'Alexander Vance' }}
                     </h1>
                     <p class="text-lg sm:text-xl font-medium text-[#8F6A3B] tracking-wide">
-                        {{ $profile->title ?? 'Senior Full-Stack Engineer & Software Architect' }}
+                        {{ $profile->trans('title') ?? 'Senior Full-Stack Engineer & Software Architect' }}
                     </p>
                 </div>
 
                 <!-- Classical Tagline Quote -->
-                <blockquote class="border-l-2 border-[#8F6A3B] pl-4 italic font-serif text-lg text-[#57534E] leading-relaxed">
-                    "{{ $profile->tagline ?? 'Crafting enduring, high-performance web systems with architectural discipline.' }}"
-                </blockquote>
+                @if($profile->trans('tagline'))
+                    <blockquote class="border-l-2 border-[#8F6A3B] pl-4 italic font-serif text-lg text-[#57534E] leading-relaxed">
+                        "{{ $profile->trans('tagline') }}"
+                    </blockquote>
+                @endif
 
                 <!-- Full Bio Content -->
                 <div id="bio" class="space-y-4 text-base text-[#57534E] leading-relaxed pt-2">
-                    @if(!empty($profile->bio))
-                        @foreach(explode("\n\n", $profile->bio) as $paragraph)
+                    @php
+                        $bioContent = $profile->trans('bio');
+                    @endphp
+                    @if(!empty($bioContent))
+                        @foreach(explode("\n\n", $bioContent) as $paragraph)
                             <p>{{ $paragraph }}</p>
                         @endforeach
                     @else
@@ -48,7 +52,7 @@
                     </div>
                     <div class="flex items-center gap-1.5">
                         <span class="material-symbols-outlined text-base text-[#8F6A3B]">history_edu</span>
-                        <span>{{ $profile->years_of_experience ?? '6' }}+ Years Industry Experience</span>
+                        <span>{{ $profile->years_of_experience ?? '6' }}+ {{ __('portfolio.years_experience') }}</span>
                     </div>
                 </div>
 
@@ -56,15 +60,15 @@
                 <div class="pt-4 flex flex-wrap items-center gap-4">
                     <a href="#work-together" class="text-decoration-none">
                         <md-filled-button style="--md-filled-button-container-color: #1C1917; --md-filled-button-label-text-color: #FAF9F6; height: 44px; padding-left: 20px; padding-right: 20px;">
-                            <span slot="icon" class="material-symbols-outlined">send</span>
-                            Start a Conversation
+                            <span slot="icon" class="material-symbols-outlined">handshake</span>
+                            {{ __('portfolio.nav_work_together') }}
                         </md-filled-button>
                     </a>
                     
                     <a href="#projects" class="text-decoration-none">
                         <md-outlined-button style="--md-outlined-button-outline-color: #1C1917; --md-outlined-button-label-text-color: #1C1917; height: 44px; padding-left: 20px; padding-right: 20px;">
                             <span slot="icon" class="material-symbols-outlined">folder_open</span>
-                            View Selected Projects
+                            {{ __('portfolio.view_portfolio') }}
                         </md-outlined-button>
                     </a>
 
@@ -85,7 +89,6 @@
             <!-- Picture / Portrait Frame (5 cols) -->
             <div class="lg:col-span-5 order-1 lg:order-2 flex justify-center">
                 <div class="relative w-full max-w-sm">
-                    <!-- Classical layered architectural border frame -->
                     <div class="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl border-2 border-[#D5D1C6] pointer-events-none"></div>
                     <div class="relative rounded-2xl overflow-hidden bg-[#FFFFFF] p-2.5 border border-[#E8E5DC] shadow-md">
                         <div class="aspect-[4/5] rounded-xl overflow-hidden bg-[#F4F2EB] relative group">
@@ -95,7 +98,6 @@
                                 class="w-full h-full object-cover object-center filter grayscale contrast-[1.05] group-hover:grayscale-0 transition-all duration-700 ease-out"
                                 loading="eager"
                             >
-                            <!-- Classical subtle monogram badge in corner -->
                             <div class="absolute bottom-3 right-3 bg-[#1C1917]/90 text-[#FAF9F6] text-xs font-serif px-2.5 py-1 rounded-md backdrop-blur-xs tracking-wider border border-white/10">
                                 EST. {{ 2026 - ($profile->years_of_experience ?? 6) }}
                             </div>
